@@ -1,0 +1,113 @@
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{\rmdefault}
+\usepackage{mathpazo}
+\usefonttheme{professionalfonts}
+\usefonttheme{serif}
+\usepackage[english]{babel}
+\usepackage{pgfplots}
+\usepackage{pgf}
+\usepackage{pgfpages}
+\pgfplotsset{compat=newest}
+\usepackage{booktabs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{microtype}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{dsfont}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{dashbox}
+\usepackage{csquotes}
+\usepackage[absolute, overlay]{textpos}
+
+\setlength{\TPHorizModule}{\textwidth}
+\setlength{\TPVertModule}{\textwidth}
+
+\input{template/settings}
+
+\newcommand{\setcolor}[1]{\def\chosencolor{#1}}
+\newcommand{\setdepartment}[1]{\def\department{#1}}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator{\E}{\mathbb{E}}
+
+\usetheme{DTU}
+\setbeamersize{text margin left=22mm}
+\def\insertframetitle{}
+
+\newcommand{\inserttitlepage}{
+    \begin{frame}[plain, noframenumbering]{}
+
+        \begin{center}
+        \hspace{-3.6em}
+            \includegraphics[width = 0.25\paperwidth]{logos/\targetcolourmodel/white.pdf}
+        \end{center}
+        
+    \end{frame}
+
+    \begin{frame}[plain]{}
+        \color{white}\maketitle
+    \end{frame}
+
+    \setbeamercolor{background canvas}{bg = white}
+}
+
+
+%\AtBeginSection[]{
+%  \begin{frame}[plain, noframenumbering]{}
+%        %\usebeamercolor[fg]{title}
+%        
+%        % title
+%               {\Large\insertsubtitle\par}\vspace{2mm}
+%               {\usebeamerfont{title}\textbf{\insertsectionhead\par}\par}\vspace{5mm}
+%               {\Large\insertauthor\par}\vspace{5mm}
+%  \end{frame}
+%    }
+
+
+
+
+
+%% Algorithm
+\newcounter{nalg} % defines algorithm counter
+\renewcommand{\thenalg}{\arabic{nalg}} %defines appearance of the algorithm counter
+\DeclareCaptionLabelFormat{algocaption}{Algorithm \thenalg} % defines a new caption label as Algorithm x.y
+\definecolor{cadet}{rgb}{0.33, 0.41, 0.47}
+\lstnewenvironment{algorithm}[1][] %defines the algorithm listing environment
+{   
+    \refstepcounter{nalg} %increments algorithm number
+    \captionsetup{labelformat=algocaption,labelsep=colon} %defines the caption setup for: it ises label format as the declared caption label above and makes label and caption text to be separated by a ':'
+    \lstset{ %this is the stype
+        mathescape=true,
+        frame=tB,
+        numbers=left, 
+        numberstyle=\tiny,
+        basicstyle=\scriptsize\ttfamily, 
+        keywordstyle=\color{black}\bfseries,
+        keywords={,optional, input, output, return, datatype, function, if, else, for, foreach, begin, end, } %add the keywords you want, or load a language as Rubens explains in his comment above.
+        numbers=left,
+        xleftmargin=.04\textwidth,
+        morecomment=[l][\color{cadet}]{//},
+        #1 % this is to add specific settings to an usage of this environment (for instnce, the caption and referable label)
+    }
+}
+{}
+
+
+\newcommand{\highlight}[1]{%
+  \colorbox{blue!20}{$\displaystyle#1$}}
+
+
+\newcommand{\mybox}[2]{\begin{textblock}{0.4}(#1)\dbox{
+    \begin{minipage}{\dimexpr\textwidth-2\fboxsep-2\fboxrule\relax}
+    \scriptsize
+    #2
+    \end{minipage}}\end{textblock}}

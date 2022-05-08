@@ -1,0 +1,69 @@
+\documentclass[aspectratio=169, hyperref={pdfpagelabels=false}]{beamer}
+\input{preamble.tex}
+\usepackage[
+  style=authoryear-comp,
+  maxnames=2,
+  backend=biber,
+  safeinputenc,
+  isbn=false,
+  doi=false,
+  maxcitenames=2,
+  date=year]{biblatex}
+ 
+\addbibresource{Defence bibliography.bib}
+
+
+% To give a presentation with the Skim reader (http://skim-app.sourceforge.net) on OSX so
+% that you see the notes on your laptop and the slides on the projector, do the following:
+% 
+% 1. Generate just the presentation (hide notes) and save to slides.pdf
+% 2. Generate onlt the notes (show only nodes) and save to notes.pdf
+% 3. With Skim open both slides.pdf and notes.pdf
+% 4. Click on slides.pdf to bring it to front.
+% 5. In Skim, under "View -> Presentation Option -> Synhcronized Noted Document"
+%    select notes.pdf.
+% 6. Now as you move around in slides.pdf the notes.pdf file will follow you.
+% 7. Arrange windows so that notes.pdf is in full screen mode on your laptop
+%    and slides.pdf is in presentation mode on the projector.
+
+%\setbeameroption{show notes}
+\setbeameroption{hide notes} % Only slides
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\subtitle{Ph.D. thesis defence}
+\title{Programmatic Agents and Causal State Abstractions}
+\author{Rasmus Larsen}
+
+\setdepartment{DTU Compute}
+\setcolor{dtured}
+
+
+\begin{document}
+\inserttitlepage
+
+\note{Today I will be giving an overview of my research in structured abstractions of states and policies in reinforcement learning.}
+
+
+%\begin{frame}{Overview}
+%\tableofcontents
+%\end{frame}
+
+\section{Motivation}
+\input{motivation}
+
+\part{Programmatic policies}
+\frame[noframenumbering]{\centering\partpage\strut}
+\section{Programmatic policies}
+\input{programmatic_policies}
+
+\part{Causal state abstractions}
+\frame[noframenumbering]{\centering\partpage\strut}
+\section{Causal state abstractions}
+\input{causal_state}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+\end{frame}
+
+\end{document}
