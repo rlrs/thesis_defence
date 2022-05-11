@@ -1,7 +1,8 @@
 \begin{frame}{Motivation}
 \begin{itemize}
-    \item Everyone can probably agree: The AI of today is narrow.
-    \item Issues: Generalization, trust, 
+    \item In the near future, we'll probably have artificial agents that interact with us in the real world; meanwhile, digital agents are already a thing today.
+    \item What features would we like these agents to have?
+    \item Issues: Generalization, trust, interpretability, ...
     
     \item What motivated my work was the identification of three crucial factors for increased AI capability: Compositionality, communicability, and state abstraction.
 \end{itemize}
@@ -22,13 +23,12 @@
 \end{frame}
 
 \note[itemize]{
-    \item I'm going to be using references to kitchen scenarios several times
-    \item So I wanted to give you an image you could think of whenever I do
-    \item These scenarios are relatable yet quite difficult.
-    \item Directly motivates the 3 features.
+    \item I wanted to give you this image to consider.
+    \item It relates to the 3 features I'm going to be introducing now.
+    \item It's also worth thinking about during the later parts of the lecture, since it's a relatable scenario for probably everyone, yet very difficult for artificial agents.
 }
 
-\begin{frame}{Composition}
+\begin{frame}{1. Composition}
 \begin{itemize}
     \item Behaviours are composed of other behaviours: Baking a cake involves opening a cupboard to get flour, which involves raising your arm, etc.
     \item Many behaviours are reusable: Raising your arm is not just used to open cupboards.
@@ -38,22 +38,47 @@
 \end{frame}
 
 \note[itemize]{
-    \item 
+    \item This is the first of the 3 features. 
+    \item <read slide>
 }
 
-\begin{frame}{Communication}
+\begin{frame}{2. Communication}
 \begin{itemize}
-    \item 
-    \item 
+    \item Understandable behaviours are important in many applications, such as safety critical systems.
+    \item Humans might feel safer knowing how an artificial agent behaves.
+    \item Beyond humans, artificial agents might benefit from communicating with each other about their behaviours; for example, in the way recipes are shared among humans.
+    \item If two agents understand the same language, and share a set of grounded variables, they can share related programs.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{State abstraction}
+\note[itemize]{
+    \item <read slide>
+    \item This last point leads to the third feature, which is state abstraction.
+}
+
+\begin{frame}{3. State abstraction}
     \begin{itemize}
-        \item 
-        \item 
+        \item Behaviours can be used in different settings; abstract away irrelevant aspects of states.
+        \item Also related to reuse of behaviours, the same behaviours are likely applicable in similar abstract states.
+        \item One way to make sense of abstraction is causality – would the outcome
+(successfully cooking a meal) be any different, had the policy been to use green bowls instead of red ones?
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Nethack challenge}
+    %\centering
+    \includegraphics[width=.78\textwidth]{images/FinalScore3.png}
+    \mybox{0.7, 0.55}{\fullcite{hambroInsightsNeurIPS20212022}}
+\end{frame}
+
+\note[itemize]{
+    \item Challenge at NeurIPS 2021, sponsored by Facebook and Deepmind, cash prize.
+    \item Roguelike game from 1987, randomly generated levels and widely considered a difficult game even for humans.
+    \item Symbolic agents generally beat DL by far - best solution used a hand-coded parser to understand the scene, and hand-coded rule-based hierarchical strategies.
+    \item This goes to show that explicitly represented programs are, in some sense, as of 2021 state of the art in representing policies!
+    \item It also shows the value of abstraction, since the choice of high-level strategy is based on rules over human-chosen abstracted states.
+    \item No agent was remotely close to "winning" the game, though.
+}
 
 \begin{frame}{Reinforcement Learning setting}
     \begin{center}
@@ -74,21 +99,6 @@
     \item 
 }
 
-\begin{frame}{Nethack challenge}
-    %\centering
-    \includegraphics[width=.78\textwidth]{images/FinalScore3.png}
-    \mybox{0.7, 0.55}{\fullcite{hambroInsightsNeurIPS20212022}}
-\end{frame}
-
-\note[itemize]{
-    \item Challenge at NeurIPS 2021, sponsored by Facebook and Deepmind, cash prize.
-    \item Roguelike game from 1987, randomly generated levels and widely considered a difficult game even for humans.
-    \item Symbolic agents generally beat DL by far - best solution used a hand-coded parser to understand the scene, and hand-coded rule-based hierarchical strategies.
-    \item This goes to show that explicitly represented programs are, in some sense, as of 2021 state of the art in representing policies!
-    \item It also shows the value of abstraction, since the choice of high-level strategy is based on rules over human-chosen abstracted states.
-    \item No agent was remotely close to "winning" the game, though.
-}
-
 \begin{frame}{Overview}
     \begin{enumerate}
         \item Programmatic policies, how to represent and learn them.
@@ -97,6 +107,5 @@
 \end{frame}
 
 \note[itemize]{
-    \item test1
-    \item test2
+    \item
 }
