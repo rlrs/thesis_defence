@@ -55,18 +55,32 @@
 \end{frame}
 
 \begin{frame}{Reinforcement Learning setting}
-    \centering
+    \begin{center}
     \includegraphics[width=.6\textwidth]{images/rl.png}
-\end{frame}
-
-\begin{frame}{Nethack challenge}
-    \centering
-    \includegraphics[width=.8\textwidth]{images/FinalScore3.png}
-    \mybox{0.7, 0.5}{nethack}
+    \end{center}
+    
+    Markov Decision Process $\mathcal{M} = \{\mathcal{S}, \mathcal{A}, P, r, p_0, \gamma\}$, where $\mathcal{S}$ is the state space, $\mathcal{A}$ the action space, $P(s'|s,a)$ is the probabilistic transition function, $r(s,a)$ the reward function, $p_0$ a distribution over initial states, and $\gamma \in (0,1)$ the discount factor.
+    
+    The goal is to maximize the expected reward, $G_t = \sum_{i=0}^\infty \gamma^i R_{t+i+1}$. 
+    
+    This is achieved by the policy $\pi(s)$ that optimizes the Bellman equation:
+    \begin{equation*}
+        v_\pi(s) = \E_\pi\left[R_{t+1} + \gamma G_{t+1} | S_t=s\right].
+    \end{equation*}
 \end{frame}
 
 \note[itemize]{
-    \item Challenge at NeuRIPS 2021, sponsored by Facebook and Deepmind, cash prize.
+    \item 
+}
+
+\begin{frame}{Nethack challenge}
+    %\centering
+    \includegraphics[width=.78\textwidth]{images/FinalScore3.png}
+    \mybox{0.7, 0.55}{\fullcite{hambroInsightsNeurIPS20212022}}
+\end{frame}
+
+\note[itemize]{
+    \item Challenge at NeurIPS 2021, sponsored by Facebook and Deepmind, cash prize.
     \item Roguelike game from 1987, randomly generated levels and widely considered a difficult game even for humans.
     \item Symbolic agents generally beat DL by far - best solution used a hand-coded parser to understand the scene, and hand-coded rule-based hierarchical strategies.
     \item This goes to show that explicitly represented programs are, in some sense, as of 2021 state of the art in representing policies!
@@ -75,8 +89,10 @@
 }
 
 \begin{frame}{Overview}
-% not TOC
-    
+    \begin{enumerate}
+        \item Programmatic policies, how to represent and learn them.
+        \item State abstractions and how to learn them.
+    \end{enumerate}
 \end{frame}
 
 \note[itemize]{

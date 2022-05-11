@@ -1,51 +1,47 @@
 \begin{frame}{Programmatic policies}
-    \mybox{0.7, 0.35}{\fullcite{larsenProgrammaticPolicyExtraction2022}}
-\end{frame}
-\begin{frame}{Motivation}
-
-\begin{itemize}
-    \item \textbf{Differentiable control policies}
     \begin{itemize}
-        \item Mainly used for optimization reasons.
-        \item Lack explainability, compositionality, generalization, inductive bias.
+        \item \textbf{Differentiable control policies}
+        \begin{itemize}
+            \item Mainly used for optimization reasons.
+            \item In general lack: explainability, compositionality, generalization, inductive bias.
+        \end{itemize}
+        \item \textbf{Programmatic policies}
+        \begin{itemize}
+            \item Compositional and inherently explainable.
+            \item Domain specific languages provide inductive bias and generalization.
+            \item Optimization is very difficult.
+        \end{itemize}
     \end{itemize}
-    \item \textbf{Programmatic policies}
-    \begin{itemize}
-        \item Compositional and inherently explainable.
-        \item Domain specific languages provide inductive bias and generalization.
-        \item Optimization is very difficult.
-    \end{itemize}
-\end{itemize}
-
-How to integrate programmatic policy representations with existing methods for policy learning?
-
-
+    \mybox{0.7, 0.43}{\fullcite{larsenProgrammaticPolicyExtraction2022}}
 \end{frame}
 
 \note[itemize]{
     \item I covered the overall motivation for my work, but here's some specific points relating that to this particular work.  
 }
 
-\begin{frame}{Reinforcement Learning and policies}
-    %\item Control policies are often represented by differentiable function approximators, $\pi : \mathbb{R}^n \rightarrow \mathbb{R}^d$.
-    %\item Commonly, these are neural networks, e.g. $\pi(s) = \sigma(W s + b)$.
-    A reinforcement learning problem is usually specified as a Markov Decision Process $\mathcal{M} = \{\mathcal{S}, \mathcal{A}, P, r, p_0, \gamma\}$, where $\mathcal{S}$ is the state space, $\mathcal{A}$ the action space, $P(s'|s,a)$ is the probabilistic transition function, $r(s,a)$ the reward function, $p_0$ a distribution over initial states, and $\gamma \in (0,1)$ the discount factor. 
-    \begin{itemize}
-        \item We focus on deterministic policies where $\mathcal{A} = \mathbb{R}^d$, i.e. continuous action spaces with the policy mapping states directly to actions.
-        \item The goal is to maximize the expected reward, $G_t = \sum_{i=0}^\infty \gamma^i R_{t+i+1}$. 
-        \item This is achieved by the policy $\pi$ that optimizes the Bellman equation:
-    \end{itemize}
-    \begin{equation*}
-        v_\pi(s) = \E_\pi\left[R_{t+1} + \gamma G_{t+1} | S_t=s\right].
-    \end{equation*}
-
+\begin{frame}{Approach: Extracting programs from black-box policies}
+\begin{itemize}
+    \item How to integrate programmatic policy representations with reinforcement learning?
+    \item Bellman equation tells us nothing about how to improve a programmatic policy.
+    \bigskip
+    \item \textbf{Key idea:} Extracting programs from existing policies.
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Behavioral cloning}
+\note[itemize]{
+    \item So what can we do? We don't know how to learn directly in program space.
+    \item In principle, each program has to be "experimented with" in the environment.
+    \item At least, that's the case unless we have a model of how \emph{syntactic} changes result in changes to the agents state distribution and thus obtained reward.
+    \item One approach is to bootstrap on existing RL algorithms
+    \item Given a trained policy, we can try to extract a program that imitates it.
+    \item This has some advantages, such as being compatible with future improvements to RL algorithms.
+}
+
+\begin{frame}{Background: Behavioral cloning}
     \begin{itemize}
         \item The simplest way to learn from action demonstrations.
-        \item With access to an \emph{expert} $f(x)$, obtain supervised dataset $(x_i, f(x_i))$.
-        \item In RL setting with expert policy $\pi(s)$: Obtain trajectories $(s_i, \pi(s_i)) \sim p_\pi(s)$.
+        \item With access to an \emph{expert} $f(x)$, obtain supervised dataset $\{(x_i, f(x_i))\}$.
+        \item In RL setting with expert policy $\pi(s)$: Obtain trajectories $\{(s_i, \pi(s_i)\} \sim p_\pi(s)$.
         \item Key issue: Expert only visits \enquote{good} states.
     \end{itemize}
     
@@ -53,31 +49,37 @@ How to integrate programmatic policy representations with existing methods for p
 \end{frame}
 
 \note[itemize]{
-    \itme Okay, so how would we go about
-    \item A really well-known, important problem with this.
+    \item I'm going to start with some background on methods, building up to my work.
+    \item Okay, so how would we go about integrating RL and programs.
+    \item The Bellman equation says nothing about improving programs.
+    \item It does tell us how to evaluate a given program, though.
+    \item The approach here is going to be one where we *somehow* obtain a black-box policy - for example, these days, by using existing Deep RL methods to learn a NN encoding the policy in its weights.
+    \item Then, the goal is to extract information from this policy and into a program. That is, we want to obtain a good clone of the black-box policy as a structured program.
+    \item There is a really well-known, important problem with BC.
     \item As in any supervised learning problem, the dataset must be representative of the problem.
     \item If we don't have supervision in some part of the state space, the data tells the student nothing about how to act.
     \item Student performance thus degrades as soon as it veers off the expert path.
 }
 
-\begin{frame}{Dataset Aggregation}
+\begin{frame}{Background: Dataset Aggregation}
     \begin{itemize}
-        \item 
+        \item Perhaps the first example of \emph{interactive} imitation.
+        \item Conceptually simple: At the first iteration, it uses the expert’s policy to gather a dataset of trajectories $\mathcal{D}$ and train a student $\hat\pi_2$ that best mimics the expert on those trajectories. 
+        \item Then at iteration $n$, it uses $\hat\pi_n$ to collect more trajectories and adds those trajectories to the dataset $\mathcal{D}$.
     \end{itemize}
+    
     \mybox{0.7, 0.42}{\fullcite{rossReductionImitationLearning2011}}
 \end{frame}
 
 \note[itemize]{
     \item As I mentioned, this is a well-known issue.
-    \item A solution is to do what I call interactive imitation. Dataset Aggregation or DAgger is an early example of interactive imitation.
-    \item 
+    \item A solution is to do what I would call interactive imitation. Dataset Aggregation or DAgger is an early example of interactive imitation.
+    \item It achieves good performance guarantees under the induced state distribution of the final student policy.
+    \item It works as follows: <follow screen>
+    \item Of course, states are generated by the student in subsequent iterations, BUT actions are still labelled by the expert for the dataset!
 }
 
-\begin{frame}[fragile]{Imitation-Projected RL I}
-A generic framework for combining RL and structured policies through imitation learning.
-
-%Uses a joint structured-neural policy class, with policies $h(s) = \pi(s) + p(s)$.
-
+\begin{frame}[fragile]{Background: Imitation-Projected RL}
 \begin{algorithm}[caption={Imitation-Projected Programmatic Reinforcement Learning}]
  input: initial (neural) policy $\pi_0$
  output: joint policy $h_J$, program $p_J$
@@ -88,8 +90,22 @@ A generic framework for combining RL and structured policies through imitation l
  end
 \end{algorithm}
 
-\mybox{0.7, 0.45}{\fullcite{vermaProgrammaticallyInterpretableReinforcement2018}}
+\begin{itemize}
+    \item A generic framework for combining RL and structured policies through imitation learning.
+\end{itemize}
+
+\mybox{0.7, 0.46}{\fullcite{vermaProgrammaticallyInterpretableReinforcement2018}}
 \end{frame}
+
+\note[itemize]{
+    \item With that in mind, let's move on to considering structured policies.
+    \item Imitation-Projected RL is the starting point for my work with programmatic policies.
+    \item It is indeed a framework for the problem that I started this section discussing: imitating a policy with a structured policy. 
+    \item It consists of iterating two steps, which we call update and project.
+    \item Update takes the current policy and improves it, that is: its a standard RL algorithm.
+    \item Project takes this updated policy and projects it into program space.
+    \item As the name of the framework suggests, this projection is performed by imitation.
+}
 
 \begin{frame}[fragile]{Imitation-Projected RL II}
 The imitation-projection operator $\textsc{Project}$ is implemented using an interactive imitation learning algorithm, such as DAgger \citep{ross2011reduction}.
@@ -118,12 +134,12 @@ In the framework, $\textsc{Derive}$ is an unspecified function that maps a datas
 
 
 \begin{frame}[fragile]{Imitation-Projection with program synthesis}
-In \citet{Verma_Le_Yue_Chaudhuri_2019}, \textsc{Derive} was implemented as a search over a set of parameterized PID controllers, or as a decision tree learner.
+\textsc{Derive} was implemented as a search over parameterized PID controllers or simple decision trees.
 
 \begin{itemize}
-    \item These spaces are small and easy to search through or even to enumerate.
-    \item However, this is not the case for more general program spaces, limiting the applicability of the framework.
-    \item \textbf{Proposed solution:} We argue that $\textsc{Derive}$ should instead improve on previous solutions.
+    \item These spaces are inflexible and small enough to enumerate.
+    \item Extension 1: More general, flexible space of programmatic policies.
+    \item Extension 2: $\textsc{Derive}$ should improve on previous solutions.
 \end{itemize}
 
 \begin{algorithm}[caption={$\textsc{Project}$: imitation learning by improvement}]
@@ -136,6 +152,10 @@ In \citet{Verma_Le_Yue_Chaudhuri_2019}, \textsc{Derive} was implemented as a sea
  end
 \end{algorithm}
 \end{frame}
+
+\note[itemize]{
+    \item 
+}
 
 \begin{frame}{Instantiation: \textsc{Derive} by typed neighborhood search I}
     Many potential instantiations -- we experimented with a relatively straightforward one.
