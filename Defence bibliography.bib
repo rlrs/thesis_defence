@@ -1,4 +1,15 @@
 
+@inproceedings{bainFrameworkBehaviouralCloning1999,
+  title = {A {{Framework}} for {{Behavioural Cloning}}},
+  booktitle = {Machine {{Intelligence}} 15, {{Intelligent Agents}} [{{St}}. {{Catherine}}'s {{College}}, {{Oxford}}, {{July}} 1995]},
+  author = {Bain, Michael and Sammut, Claude},
+  date = {1999-01-01},
+  pages = {103--129},
+  publisher = {{Oxford University}},
+  location = {{GBR}},
+  isbn = {978-0-19-853867-7}
+}
+
 @article{bareinboimPearlHierarchyFoundations,
   title = {1 {{On Pearl}}’s {{Hierarchy}} and the {{Foundations}} of {{Causal Inference}}},
   author = {Bareinboim, Elias and Correa, Juan D and Ibeling, Duligur and Icard, Thomas},
@@ -16,6 +27,19 @@
   abstract = {We present a general framework for training safe agents whose naive incentives are unsafe. As an example, manipulative or deceptive behaviour can improve rewards but should be avoided. Most approaches fail here: agents maximize expected return by any means necessary. We formally describe settings with ‘delicate’ parts of the state which should not be used as a means to an end. We then train agents to maximize the causal effect of actions on the expected return which is not mediated by the delicate parts of state, using Causal Influence Diagram analysis. The resulting agents have no incentive to control the delicate state. We further show how our framework unifies and generalizes existing proposals.},
   langid = {english},
   file = {/Users/Rasmus/Zotero/storage/DN5ETPND/Farquhar et al. - Path-specific Objectives for Safer Agent Incentive.pdf}
+}
+
+@unpublished{hambroInsightsNeurIPS20212022,
+  title = {Insights {{From}} the {{NeurIPS}} 2021 {{NetHack Challenge}}},
+  author = {Hambro, Eric and Mohanty, Sharada and Babaev, Dmitrii and Byeon, Minwoo and Chakraborty, Dipam and Grefenstette, Edward and Jiang, Minqi and Jo, Daejin and Kanervisto, Anssi and Kim, Jongmin and Kim, Sungwoong and Kirk, Robert and Kurin, Vitaly and Küttler, Heinrich and Kwon, Taehwon and Lee, Donghoon and Mella, Vegard and Nardelli, Nantas and Nazarov, Ivan and Ovsov, Nikita and Parker-Holder, Jack and Raileanu, Roberta and Ramanauskas, Karolis and Rocktäschel, Tim and Rothermel, Danielle and Samvelyan, Mikayel and Sorokin, Dmitry and Sypetkowski, Maciej and Sypetkowski, Michał},
+  date = {2022-03-22},
+  eprint = {2203.11889},
+  eprinttype = {arxiv},
+  primaryclass = {cs, stat},
+  abstract = {In this report, we summarize the takeaways from the first NeurIPS 2021 NetHack Challenge. Participants were tasked with developing a program or agent that can win (i.e., 'ascend' in) the popular dungeon-crawler game of NetHack by interacting with the NetHack Learning Environment (NLE), a scalable, procedurally generated, and challenging Gym environment for reinforcement learning (RL). The challenge showcased community-driven progress in AI with many diverse approaches significantly beating the previously best results on NetHack. Furthermore, it served as a direct comparison between neural (e.g., deep RL) and symbolic AI, as well as hybrid systems, demonstrating that on NetHack symbolic bots currently outperform deep RL by a large margin. Lastly, no agent got close to winning the game, illustrating NetHack's suitability as a long-term benchmark for AI research.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing,Computer Science - Symbolic Computation,Statistics - Machine Learning},
+  file = {/Users/Rasmus/Zotero/storage/JP5PDRQA/Hambro et al. - 2022 - Insights From the NeurIPS 2021 NetHack Challenge.pdf;/Users/Rasmus/Zotero/storage/XPR5KMYZ/2203.html}
 }
 
 @article{herlauReinforcementLearningCausal2022,
@@ -54,7 +78,6 @@
   series = {Lecture {{Notes}} in {{Computer Science}}},
   pages = {156--166},
   publisher = {{Springer International Publishing}},
-  location = {{Cham}},
   doi = {10.1007/978-3-030-97454-1_11},
   abstract = {Reinforcement learning policies are often represented by neural networks, but programmatic policies are preferred in some cases because they are more interpretable, amenable to formal verification, or generalize better. While efficient algorithms for learning neural policies exist, learning programmatic policies is challenging. Combining imitation-projection and dataset aggregation with a local search heuristic, we present a simple and direct approach to extracting a programmatic policy from a pretrained neural policy. After examining our local search heuristic on a programming by example problem, we demonstrate our programmatic policy extraction method on a pendulum swing-up problem. Both when trained using a hand crafted expert policy and a learned neural policy, our method discovers simple and interpretable policies that perform almost as well as the original.},
   isbn = {978-3-030-97454-1},

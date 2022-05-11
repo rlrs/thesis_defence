@@ -44,15 +44,33 @@ How to integrate programmatic policy representations with existing methods for p
 \begin{frame}{Behavioral cloning}
     \begin{itemize}
         \item The simplest way to learn from action demonstrations.
-        \item With access to a \emph{teacher} $f(x)$, obtain supervised dataset $(x_i, f(x_i))$.
-        \item In RL setting: 
+        \item With access to an \emph{expert} $f(x)$, obtain supervised dataset $(x_i, f(x_i))$.
+        \item In RL setting with expert policy $\pi(s)$: Obtain trajectories $(s_i, \pi(s_i)) \sim p_\pi(s)$.
+        \item Key issue: Expert only visits \enquote{good} states.
     \end{itemize}
     
-    \mybox{0.7, 0.4}{\fullcite{bainFrameworkBehaviouralCloning1999}}
+    \mybox{0.7, 0.45}{\fullcite{bainFrameworkBehaviouralCloning1999}}
 \end{frame}
 
 \note[itemize]{
-    \
+    \itme Okay, so how would we go about
+    \item A really well-known, important problem with this.
+    \item As in any supervised learning problem, the dataset must be representative of the problem.
+    \item If we don't have supervision in some part of the state space, the data tells the student nothing about how to act.
+    \item Student performance thus degrades as soon as it veers off the expert path.
+}
+
+\begin{frame}{Dataset Aggregation}
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \mybox{0.7, 0.42}{\fullcite{rossReductionImitationLearning2011}}
+\end{frame}
+
+\note[itemize]{
+    \item As I mentioned, this is a well-known issue.
+    \item A solution is to do what I call interactive imitation. Dataset Aggregation or DAgger is an early example of interactive imitation.
+    \item 
 }
 
 \begin{frame}[fragile]{Imitation-Projected RL I}
@@ -96,10 +114,7 @@ In the framework, $\textsc{Derive}$ is an unspecified function that maps a datas
 
 \end{frame}
 
-\begin{frame}{DAgger}
-    
-    \mybox{0.7, 0.42}{\fullcite{rossReductionImitationLearning2011}}
-\end{frame}
+
 
 
 \begin{frame}[fragile]{Imitation-Projection with program synthesis}
