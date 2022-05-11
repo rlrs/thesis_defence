@@ -12,7 +12,7 @@
             \item Optimization is very difficult.
         \end{itemize}
     \end{itemize}
-    \mybox{0.7, 0.43}{\fullcite{larsenProgrammaticPolicyExtraction2022}}
+    \mybox{0.7, 0.42}{\fullcite{larsenProgrammaticPolicyExtraction2022}}
 \end{frame}
 
 \note[itemize]{
@@ -94,7 +94,7 @@
     \item A generic framework for combining RL and structured policies through imitation learning.
 \end{itemize}
 
-\mybox{0.7, 0.46}{\fullcite{vermaProgrammaticallyInterpretableReinforcement2018}}
+\mybox{0.7, 0.45}{\fullcite{vermaProgrammaticallyInterpretableReinforcement2018}}
 \end{frame}
 
 \note[itemize]{
@@ -107,12 +107,12 @@
     \item As the name of the framework suggests, this projection is performed by imitation.
 }
 
-\begin{frame}[fragile]{Imitation-Projected RL II}
-The imitation-projection operator $\textsc{Project}$ is implemented using an interactive imitation learning algorithm, such as DAgger \citep{ross2011reduction}.
+\begin{frame}[fragile]{The imitation projector}
+The operator $\textsc{Project}$ is implemented using an interactive imitation learning algorithm, here DAgger.
 
 \begin{algorithm}[caption={$\textsc{Project}$: imitation learning}]
  input: structured policy class $\mathcal{P}$
- input: oracle policy $h$
+ input: expert policy $h$
  output: structured imitation policy $p_K$
  $\tau_0 \leftarrow $ $N$ on-policy trajectories using $h$
  create supervised dataset $\Gamma_0 = \left\{\left(s, h(s)\right) |\, s \in \tau_0 \right\}$
@@ -125,11 +125,12 @@ The imitation-projection operator $\textsc{Project}$ is implemented using an int
  end
 \end{algorithm}
 
-In the framework, $\textsc{Derive}$ is an unspecified function that maps a dataset $\Gamma$ to a member of the set of policies $\mathcal{P}$ that imitates the dataset well.
-
-
 \end{frame}
 
+\note[itemize]{
+    \item Just to show how DAgger integrates into the imitation projection, here's some pseudocode for PROJECT.
+    \item In the framework, $\textsc{Derive}$ is an unspecified function that performs the learning or search for a policy given a dataset.
+}
 
 
 
@@ -138,8 +139,8 @@ In the framework, $\textsc{Derive}$ is an unspecified function that maps a datas
 
 \begin{itemize}
     \item These spaces are inflexible and small enough to enumerate.
-    \item Extension 1: More general, flexible space of programmatic policies.
-    \item Extension 2: $\textsc{Derive}$ should improve on previous solutions.
+    \item \textbf{Extension 1:} More general, flexible space of programmatic policies.
+    \item \textbf{Extension 2:} $\textsc{Derive}$ should improve on previous solutions.
 \end{itemize}
 
 \begin{algorithm}[caption={$\textsc{Project}$: imitation learning by improvement}]
@@ -151,6 +152,81 @@ In the framework, $\textsc{Derive}$ is an unspecified function that maps a datas
    $p_k \leftarrow \textsc{Derive}(\Gamma_k, \highlight{\{p_0,\,\dots,\,p_{k-1}\}})$
  end
 \end{algorithm}
+\end{frame}
+
+\note[itemize]{
+    \item Now here's where my contribution comes into play. 
+    \item In the paper by Verma, they implement DERIVE as an exhaustive search over some small structured spaces - a set of PID controllers or some small decision trees.
+    \item My contributions to this involve two extensions of their work. 
+    \item First, we want to use a more general class of policies - namely actual programs from a DSL in the typed lambda calculus.
+    \item The first extension obviously causes the search space to be much larger, and so we cannot do exhaustive search or be too naive about it.
+    \item That's why my second extension is towards an iterative imitation, where the previously best program is improved in each iteration.
+    \item This extension is illustrated here at a high level, where DERIVE now also takes in previous solutions.
+}
+
+
+\newcommand{\Abs}[2]{\mathbb{\lambda}\mathtt{ #1.\,#2}}
+\newcommand{\App}[2]{\mathtt{#1\,#2}}
+\newcommand{\Sub}[3]{\mathtt{[#1 \mapsto #2]#3}}
+\newcommand{\Fun}[2]{\mathtt{#1 \rightarrow #2}}
+\newcommand{\Let}[2]{\mathtt{let\, x=#1\,in\, #2}}
+
+\begin{frame}{The lambda calculus}
+    \begin{itemize}
+        \item A calculus is some rules for manipulating symbols.
+        \item The lambda calculus has terms of the form: 
+            \begin{itemize}
+                \item $\mathtt{t ::= var\,|\, \App{t}{t} \,|\, \Abs{var}{t}}$
+            \end{itemize}
+        \item Computation is solely done through rewriting terms.
+        \item A term of the form $\App{(\Abs{x}{t_{12}})}{t_2}$ is called a \emph{redex}.
+        \item The rule $\App{(\Abs{x}{t_{12}})}{t_2} \longrightarrow \Sub{x}{t_2}{t_{12}}$ is called \emph{beta-reduction} and is how function application is defined.
+        \item The right hand side reads \enquote{the term obtained by replacing all free occurrences of $\mathtt{x}$ in $\mathtt{t_{12}}$ by $\mathtt{t_2}$}.
+    \end{itemize}
+    \mybox{0.7, 0.5}{\fullcite{pierceTypesProgrammingLanguages2002}}
+\end{frame}
+
+\note[itemize]{
+    \item Okay, so extension 1, using the lambda calculus as a policy representation.
+    \item <Read through the slide>
+    \item There are a lot of implementation details that I won't get into - they're not important unless you need to actually implement an interpreter.
+}
+
+\begin{frame}{(Hindley-Milner) types}
+    \begin{itemize}
+        \item We can assign \emph{types} to terms in the lambda calculus; e.g. $\mathtt{2 : Int}$ and $\mathtt{+ : Int \rightarrow Int}$.
+        \item There are rules that describe how types relate to the terms, such as the rule for typing function applications,
+        \begin{equation*}
+            \trfrac{\mathtt{\Gamma \vdash t_1 : T_{11} \rightarrow T_{12} \qquad \Gamma \vdash t_2 : T_{11}}}
+                        {\mathtt{\Gamma \vdash t_1 \, t_2 : T_{12}}} \quad \mathrm{(T-App)}
+        \end{equation*}
+        \item If not all types in a program are specified, it can be possible to \emph{infer} them from other types. 
+        \item The Hindley-Milner type system additionally allows to infer \emph{polymorphic types}, i.e. we can write types like $\mathtt{\forall X. X \rightarrow X}$.
+    \end{itemize}
+\end{frame}
+
+\note[itemize]{
+    \item Gamma is called a typing context or a type environment, and it is simply a sequence of variables and their types.
+    \item Abstractions add new entries of (variable, type) to the typing environment, in order to keep track of the types for application.
+    \item T-App: If t_1 evaluates to a function mapping arguments in T_11 to results in T_12, and if t_2 evaluates to a result in T_11, then the result of applying t_1 to t_2 will be a value of type T_12.
+    \item The Hindley-Milner type system is actually going to be especially important for our program search algorithm. Specifically, this is due to a procedure called type unification.
+    \item This allows us to significantly reduce the search space by only generating well-typed modifications to programs.
+}
+
+\begin{frame}{Domain Specific Languages (DSLs)}
+    \begin{itemize}
+        \item We want to embed knowledge about our domain in the programmatic policies.
+        \item This will reduce program size for a given solution, and thus the search space.
+        \item A DSL is simply a collection of typed constants and functions, including implementations.
+    \end{itemize}
+    Example of a DSL:
+    \begin{itemize}
+        \item Constants: $(\texttt{Bool: \{true, false\}, Int: \{0, 1, 2\}})$
+        \item Functions: $\begin{aligned}
+            (&\texttt{add :: Int -> Int -> Int}, \\
+             &\texttt{if :: $\forall$a. Bool -> a -> a -> a})
+        \end{aligned}$
+    \end{itemize}
 \end{frame}
 
 \note[itemize]{
@@ -171,17 +247,10 @@ In the framework, $\textsc{Derive}$ is an unspecified function that maps a datas
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Instantiation: \textsc{Derive} by typed neighborhood search II}
-Example of a DSL:
-\begin{itemize}
-    \item Constants: $(\texttt{Bool: \{true, false\}, Int: \{0, 1, 2\}})$
-    \item Functions: $\begin{aligned}
-        (&\texttt{add :: Int -> Int -> Int}, \\
-         &\texttt{if :: $\forall$a. Bool -> a -> a -> a})
-    \end{aligned}$
-\end{itemize}
+\begin{frame}[fragile]{Instantiation: Neighborhood}
+The neighborhood of program $p$ is here defined based on all well-typed substitutions $p'$ into $p$ of size less than $d$ at all locations in the AST of $p$. 
 
-The neighborhood of program $p$ is here defined based on all well-typed substitutions $p'$ into $p$ of size less than $d$ at all locations in the AST of $p$. Example of a neighborhood:
+Example of a neighborhood:
 \begin{itemize}
     \item $p: \texttt{add 1 1}$.
     \item Neighbors: $\texttt{? :: Int $\cup$ add (? :: Int) 1 $\cup$ add 1 (? :: Int)}$.
@@ -230,6 +299,7 @@ The neighborhood of program $p$ is here defined based on all well-typed substitu
 
 \begin{frame}{Future work}
 \begin{itemize}
+    \item Improve neighborhood efficiency, e.g. keep track of templates and symmetries.
     \item Integrate synthesis and learning steps, i.e. outer loop.
     \begin{itemize}
         \item How do we take advantage of discovered programs in the following reinforcement learning updates?
