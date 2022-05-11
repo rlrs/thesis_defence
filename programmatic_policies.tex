@@ -22,6 +22,10 @@ How to integrate programmatic policy representations with existing methods for p
 
 \end{frame}
 
+\note[itemize]{
+    \item I covered the overall motivation for my work, but here's some specific points relating that to this particular work.  
+}
+
 \begin{frame}{Reinforcement Learning and policies}
     %\item Control policies are often represented by differentiable function approximators, $\pi : \mathbb{R}^n \rightarrow \mathbb{R}^d$.
     %\item Commonly, these are neural networks, e.g. $\pi(s) = \sigma(W s + b)$.
@@ -37,8 +41,22 @@ How to integrate programmatic policy representations with existing methods for p
 
 \end{frame}
 
+\begin{frame}{Behavioral cloning}
+    \begin{itemize}
+        \item The simplest way to learn from action demonstrations.
+        \item With access to a \emph{teacher} $f(x)$, obtain supervised dataset $(x_i, f(x_i))$.
+        \item In RL setting: 
+    \end{itemize}
+    
+    \mybox{0.7, 0.4}{\fullcite{bainFrameworkBehaviouralCloning1999}}
+\end{frame}
+
+\note[itemize]{
+    \
+}
+
 \begin{frame}[fragile]{Imitation-Projected RL I}
-A generic framework for combining RL and structured policies through imitation learning \citep{Verma_Le_Yue_Chaudhuri_2019}.
+A generic framework for combining RL and structured policies through imitation learning.
 
 %Uses a joint structured-neural policy class, with policies $h(s) = \pi(s) + p(s)$.
 
@@ -51,6 +69,8 @@ A generic framework for combining RL and structured policies through imitation l
    $p_j \leftarrow \textsc{Project}(h_j)$
  end
 \end{algorithm}
+
+\mybox{0.7, 0.45}{\fullcite{vermaProgrammaticallyInterpretableReinforcement2018}}
 \end{frame}
 
 \begin{frame}[fragile]{Imitation-Projected RL II}
@@ -74,6 +94,11 @@ The imitation-projection operator $\textsc{Project}$ is implemented using an int
 In the framework, $\textsc{Derive}$ is an unspecified function that maps a dataset $\Gamma$ to a member of the set of policies $\mathcal{P}$ that imitates the dataset well.
 
 
+\end{frame}
+
+\begin{frame}{DAgger}
+    
+    \mybox{0.7, 0.42}{\fullcite{rossReductionImitationLearning2011}}
 \end{frame}
 
 
@@ -151,11 +176,11 @@ The neighborhood of program $p$ is here defined based on all well-typed substitu
 \begin{frame}{Results}
     \begin{figure}
       %\centering
-      \includegraphics[width=0.37\textwidth]{figures/performance.png}
-      \includegraphics[width=0.37\textwidth]{figures/groundtruth.png}
+      \includegraphics[width=0.37\textwidth]{images/performance.png}
+      \includegraphics[width=0.37\textwidth]{images/groundtruth.png}
       
-      \includegraphics[width=0.37\textwidth]{figures/imitation4.png}
-      \includegraphics[width=0.37\textwidth]{figures/imitation56.png}
+      \includegraphics[width=0.37\textwidth]{images/imitation4.png}
+      \includegraphics[width=0.37\textwidth]{images/imitation56.png}
     \end{figure}
     
 \end{frame}

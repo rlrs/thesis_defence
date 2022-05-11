@@ -8,11 +8,16 @@
 \end{frame}
 
 \note[itemize]{
+    \item As the title of my thesis hints, I'm going to talk about some aspects related to intelligent agents. 
+    \item Specifically, I'm going to talk about how programs, as in programming languages, might be useful representations for an agents behavior, and about my research on learning programs.
+    \item Another thing I'll be talking about is the value of abstractions, more specifically how causality can help with choosing the right abstractions.
+    \item So why should we care about these topics?
+    
     \item AI needs to be able to deal with situations outside of those with cheap, plentiful data. Generalize to novel situations that are completely unseen.
     \item Can we trust narrow AI? When?
 }
 
-\begin{frame}{Theme: Robot in a kitchen}
+\begin{frame}{Perspective: Robot in a kitchen}
     \includegraphics[width=.7\textwidth]{images/robot-cooking.png}
 \end{frame}
 
@@ -47,19 +52,27 @@
         \item 
         \item 
     \end{itemize}
-    \includegraphics[width=0.58\textwidth]{images/valueofabstraction.png}
-    \mybox{0.7, 0.35}{\fullcite{hoValueAbstraction2019}}
 \end{frame}
 
 \begin{frame}{Reinforcement Learning setting}
-    
+    \centering
+    \includegraphics[width=.6\textwidth]{images/rl.png}
 \end{frame}
 
 \begin{frame}{Nethack challenge}
-\begin{itemize}
-    \item Symbolic manipulation agent beat DL by far. 
-\end{itemize}
+    \centering
+    \includegraphics[width=.8\textwidth]{images/FinalScore3.png}
+    \mybox{0.7, 0.5}{nethack}
 \end{frame}
+
+\note[itemize]{
+    \item Challenge at NeuRIPS 2021, sponsored by Facebook and Deepmind, cash prize.
+    \item Roguelike game from 1987, randomly generated levels and widely considered a difficult game even for humans.
+    \item Symbolic agents generally beat DL by far - best solution used a hand-coded parser to understand the scene, and hand-coded rule-based hierarchical strategies.
+    \item This goes to show that explicitly represented programs are, in some sense, as of 2021 state of the art in representing policies!
+    \item It also shows the value of abstraction, since the choice of high-level strategy is based on rules over human-chosen abstracted states.
+    \item No agent was remotely close to "winning" the game, though.
+}
 
 \begin{frame}{Overview}
 % not TOC

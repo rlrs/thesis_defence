@@ -7,9 +7,22 @@
   file = {/Users/Rasmus/Zotero/storage/PBDW9MU5/Bareinboim et al. - 1 On Pearl’s Hierarchy and the Foundations of Caus.pdf}
 }
 
-@article{herlauReinforcementLearningCausal,
+@article{farquharPathspecificObjectivesSafer2022,
+  title = {Path-Specific {{Objectives}} for {{Safer Agent Incentives}}},
+  author = {Farquhar, Sebastian and Carey, Ryan and Everitt, Tom},
+  date = {2022},
+  journaltitle = {AAAI 2022},
+  pages = {10},
+  abstract = {We present a general framework for training safe agents whose naive incentives are unsafe. As an example, manipulative or deceptive behaviour can improve rewards but should be avoided. Most approaches fail here: agents maximize expected return by any means necessary. We formally describe settings with ‘delicate’ parts of the state which should not be used as a means to an end. We then train agents to maximize the causal effect of actions on the expected return which is not mediated by the delicate parts of state, using Causal Influence Diagram analysis. The resulting agents have no incentive to control the delicate state. We further show how our framework unifies and generalizes existing proposals.},
+  langid = {english},
+  file = {/Users/Rasmus/Zotero/storage/DN5ETPND/Farquhar et al. - Path-specific Objectives for Safer Agent Incentive.pdf}
+}
+
+@article{herlauReinforcementLearningCausal2022,
   title = {Reinforcement {{Learning}} of {{Causal Variables}} Using {{Mediation Analysis}}},
   author = {Herlau, Tue and Larsen, Rasmus},
+  date = {2022},
+  journaltitle = {AAAI 2022},
   pages = {8},
   abstract = {We consider the problem of acquiring causal representations and concepts in a reinforcement learning setting. Our approach defines a causal variable as being both manipulable by a policy, and able to predict the outcome. We thereby obtain a parsimonious causal graph in which interventions occur at the level of policies. The approach avoids defining a generative model of the data, prior pre-processing, or learning the transition kernel of the Markov decision process. Instead, causal variables and policies are determined by maximizing a new optimization target inspired by mediation analysis, which differs from the expected return. The maximization is accomplished using a generalization of Bellman’s equation which is shown to converge, and the method finds meaningful causal representations in a simulated environment.},
   langid = {english},
@@ -87,6 +100,45 @@
   abstract = {The direct effect of one event on another can be defined and measured by holding constant all intermediate variables between the two. Indirect effects present conceptual and practical difficulties (in nonlinear models), because they cannot be isolated by holding certain variables constant. This paper presents a new way of defining the effect transmitted through a restricted set of paths, without controlling variables on the remaining paths. This permits the assessment of a more natural type of direct and indirect effects, one that is applicable in both linear and nonlinear models and that has broader policy-related interpretations. The paper establishes conditions under which such assessments can be estimated consistently from experimental and nonexperimental data, and thus extends path-analytic techniques to nonlinear and nonparametric models.},
   isbn = {978-1-55860-800-9},
   file = {/Users/Rasmus/Zotero/storage/LSCQ5JW6/Pearl - 2001 - Direct and indirect effects.pdf}
+}
+
+@book{pierceTypesProgrammingLanguages2002,
+  title = {Types and {{Programming Languages}}},
+  author = {Pierce, Benjamin C.},
+  date = {2002-02-01},
+  edition = {1st edition},
+  publisher = {{The MIT Press}},
+  location = {{Cambridge, Mass}},
+  isbn = {978-0-262-16209-8},
+  langid = {english},
+  pagetotal = {648}
+}
+
+@inproceedings{rossReductionImitationLearning2011,
+  title = {A {{Reduction}} of {{Imitation Learning}} and {{Structured Prediction}} to {{No-Regret Online Learning}}},
+  booktitle = {Proceedings of the {{Fourteenth International Conference}} on {{Artificial Intelligence}} and {{Statistics}}},
+  author = {Ross, Stephane and Gordon, Geoffrey and Bagnell, Drew},
+  date = {2011-06-14},
+  pages = {627--635},
+  publisher = {{JMLR Workshop and Conference Proceedings}},
+  issn = {1938-7228},
+  abstract = {Sequential prediction problems such as imitation learning, where future observations depend on previous predictions (actions), violate the common i.i.d. assumptions made in statistical learning. This leads to poor performance in theory and often in practice. Some recent approaches provide stronger guarantees in this setting, but remain somewhat unsatisfactory as they train either non-stationary or stochastic policies and require a large number of iterations. In this paper, we propose a new iterative algorithm, which trains a stationary deterministic policy, that can be seen as a no regret algorithm in an online learning setting. We show that any such no regret algorithm, combined with additional reduction assumptions, must find a policy with good performance under the distribution of observations it induces in such sequential settings. We demonstrate that this new approach outperforms previous approaches on two challenging imitation learning problems and a benchmark sequence labeling problem.},
+  langid = {english},
+  file = {/Users/Rasmus/Zotero/storage/YTXG7HH4/Ross et al. - 2011 - A Reduction of Imitation Learning and Structured P.pdf}
+}
+
+@inproceedings{vermaProgrammaticallyInterpretableReinforcement2018,
+  title = {Programmatically {{Interpretable Reinforcement Learning}}},
+  booktitle = {Proceedings of the 35th {{International Conference}} on {{Machine Learning}}},
+  author = {Verma, Abhinav and Murali, Vijayaraghavan and Singh, Rishabh and Kohli, Pushmeet and Chaudhuri, Swarat},
+  date = {2018-07-03},
+  pages = {5045--5054},
+  publisher = {{PMLR}},
+  issn = {2640-3498},
+  abstract = {We present a reinforcement learning framework, called Programmatically Interpretable Reinforcement Learning (PIRL), that is designed to generate interpretable and verifiable agent policies. Unlike the popular Deep Reinforcement Learning (DRL) paradigm, which represents policies by neural networks, PIRL represents policies using a high-level, domain-specific programming language. Such programmatic policies have the benefits of being more easily interpreted than neural networks, and being amenable to verification by symbolic methods. We propose a new method, called Neurally Directed Program Search (NDPS), for solving the challenging nonsmooth optimization problem of finding a programmatic policy with maximal reward. NDPS works by first learning a neural policy network using DRL, and then performing a local search over programmatic policies that seeks to minimize a distance from this neural “oracle”. We evaluate NDPS on the task of learning to drive a simulated car in the TORCS car-racing environment. We demonstrate that NDPS is able to discover human-readable policies that pass some significant performance bars. We also show that PIRL policies can have smoother trajectories, and can be more easily transferred to environments not encountered during training, than corresponding policies discovered by DRL.},
+  eventtitle = {International {{Conference}} on {{Machine Learning}}},
+  langid = {english},
+  file = {/Users/Rasmus/Zotero/storage/8SWPM525/Verma et al. - 2018 - Programmatically Interpretable Reinforcement Learn.pdf;/Users/Rasmus/Zotero/storage/NTG85EFZ/Verma et al. - 2018 - Programmatically Interpretable Reinforcement Learn.pdf}
 }
 
 
